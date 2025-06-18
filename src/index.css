@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+
+
+
+*{
+  font-family: 'Playfair Display';
+}
+
+:root{
+
+  --dark:#141414;
+  --bg-white:#F5F5F5;  
+  --primary:#BA7894;
+  --secondary:#422A3C;
+  --light:#F7E5C1;
+}
+
+@theme inline{
+  --color-dark: var(--dark);
+  --color-bg-white: var(--bg-white);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-light: var(--light);
+}
