@@ -30,11 +30,11 @@ const Galery = () => {
                 <p className='text-sm'>Lorem ipsum dolor sit amet consectetur. Eu quis enim tempor et proin neque.</p></div>
 
             <div className='grid grid-cols-3 gap-4 w-full  rounded-4xl overflow-hidden '>
-                <div className="row-span-2 overflow-hidden"><img src="/image1.png" className='hover:scale-110 transition ease-in-out' alt="" /></div>
-                <div className='overflow-hidden'><img src="/image2.png" className='hover:scale-110 transition ease-in-out' alt="" /></div>
-                <div className='overflow-hidden'><img src="/image3.png" className='hover:scale-110 transition ease-in-out' alt="" /></div>
-                <div className='overflow-hidden'><img src="/image4.png" className='hover:scale-110 transition ease-in-out' alt="" /></div>
-                <div className='overflow-hidden'><img src="/image5.png" className='hover:scale-110 transition ease-in-out' alt="" /></div>
+                <div className="w-full h-full  row-span-2 overflow-hidden"><img src="/image1.png" className='hover:scale-110 transition ease-in-out object-cover w-full h-full' alt="" /></div>
+                <div className='w-full h-full  overflow-hidden'><img src="/image2.png" className='hover:scale-110 transition ease-in-out object-cover w-full h-full' alt="" /></div>
+                <div className='w-full h-full  overflow-hidden'><img src="/image3.png" className='hover:scale-110 transition ease-in-out object-cover w-full h-full' alt="" /></div>
+                <div className='w-full h-full  overflow-hidden'><img src="/image4.png" className='hover:scale-110 transition ease-in-out object-cover w-full h-full' alt="" /></div>
+                <div className='w-full h-full  overflow-hidden'><img src="/image5.png" className='hover:scale-110 transition ease-in-out object-cover w-full h-full' alt="" /></div>
             </div>
         </section>
     )
@@ -100,7 +100,7 @@ const Recommended = () => {
             <div className='flex items-center justify-start gap-10 overflow-x-scroll w-full  ' style={{ scrollbarWidth: 'none' }}>
                 {services.map((item, index) => (
                     <div key={index} className='flex flex-col border-[1px] border-primary pb-2 items-center overflow-hidden justify-center gap-1 rounded-lg  min-w-[255px] w-full '>
-                        <div className='w-full min-w-42 h-56 object-cover  mb-2 overflow-hidden'><img src={`/${item.image}`} alt={item.name} className='hover:scale-110 ease-in transition-all duration-200' />
+                        <div className='w-full min-w-42 h-56 object-cover  mb-2 overflow-hidden'><img src={`/${item.image}`} alt={item.name} className='hover:scale-110 ease-in transition-all duration-200 w-full h-full' />
                         </div><div className='flex items-center justify-between w-full px-4 py-2'>
                             <div className='flex text-sm items-center w-full justify-between gap-2'>
                                 <span className='text-yellow-500'>{'★' + item.reviews}</span>
