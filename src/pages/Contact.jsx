@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiUser } from 'react-icons/bi'
 import { CiMail } from 'react-icons/ci'
 import { FaMailBulk } from 'react-icons/fa'
@@ -7,6 +7,10 @@ import { IoBookOutline } from 'react-icons/io5'
 import { LuHouse } from 'react-icons/lu'
 import { MdPhoneCallback } from 'react-icons/md'
 import { PiNotePencilLight } from 'react-icons/pi'
+import emailJs from "@emailjs/browser"
+import { useLocation } from 'react-router'
+import Input from '../components/Input'
+
 
 const Hero = () => {
 
@@ -58,10 +62,50 @@ const GetInTouch = () => {
 
 const ContactForm = () => {
 
-  const handleSubmit = async () => {
+  const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    note: "",
+  })
+  const location = useLocation();
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const serviceFromUrl = params.get("service");
+    if (serviceFromUrl) {
+      setForm(prev => ({ ...prev, service: serviceFromUrl }));
+    }
+  }, [location.search]);
+  const handleChange = (e) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true);
+    emailJs.send("service_mnehd7q", "template_kyv9r5p",
+      {
+        from_name: form.name,
+        to_name: "kharchi merouane",
+        message: form.note,
+        email: form.email,
+        phone: form.phone,
+      }, "AXN0NM8BSmKr1TVYt").then((data) => {
+        setLoading(false)
+        alert("message sent")
+        setForm({
+          email: "",
+          name: "",
+          note: "",
+          phone: "",
+          service: ""
+        })
+      })
 
   }
 
+  
   return (
     <div className='w-full flex flex-col justify-center items-center p-24 gap-2 min-h-screen bg-[#FBF2E0] text-secondary'>
       <p className='text-sm  '>SCHEDULE YOUR PRESENCE</p>
@@ -70,13 +114,16 @@ const ContactForm = () => {
         There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
       </p>
 
-      <form className='rounded-4xl shadow-2xl mt-6 p-12 w-[60%] bg-white flex flex-col items-center justify-center gap-2' onSubmit={handleSubmit}>
-        <label className='w-full p-2 border rounded-xl px-4 flex items-center font-semibold gap-2' htmlFor="">{<FaUser className='w-16 h-12' />}<span className='w-fit min-w-32'>Name</span><input className='w-full p-2  rounded-xl px-4' type="text" /> </label>
-        <label className='w-full p-2 border rounded-xl px-4 flex items-center font-semibold gap-2' htmlFor="">{<CiMail height={40} width={40} className='w-16 h-12' />}<span className='w-fit min-w-32'>Email</span><input className='w-full p-2  rounded-xl px-4' type="email" />   </label>
-        <label className='w-full p-2 border rounded-xl px-4 flex items-center font-semibold gap-2' htmlFor="">{<MdPhoneCallback className='w-16 h-12' />}<span className='w-fit min-w-32'>Phone</span> <input className='w-full p-2  rounded-xl px-4' type="phone" /> </label>
-        <label className='w-full p-2 border rounded-xl px-4 flex items-center font-semibold gap-2' htmlFor="">{<IoBookOutline className='w-16 h-12' />}<span className='w-fit min-w-32'>Service You Need</span> <input className='w-full p-2  rounded-xl px-4' type="text" /> </label>
-        <label className='w-full p-2 border rounded-xl px-4 flex items-center font-semibold gap-2' htmlFor="">{<PiNotePencilLight className='w-16 h-12' />}<span className='w-fit min-w-32'>Any Note For Us</span><textarea className='w-full p-2  rounded-xl px-4' name="" id=""></textarea> </label>
-        <button className='mt-4 w-full py-2 bg-dark text-bg-white text-lg rounded-lg'>Submit</button>
+      <form className='rounded-4xl shadow-2xl mt-6 px-6 py-9 w-[60%] bg-white flex flex-col items-center justify-center gap-3' onSubmit={handleSubmit}>
+         {
+          [{name:'name'  ,      placeholde:'Enter your name' ,  type:'text'} , 
+           {name:'email'  ,     placeholde:'Enter your email' , type:'email'} , 
+           {name:'phone'  ,     placeholde:'Enter your phone number ' , type:'text'} , 
+           {name:'service'  ,   placeholde:'What service would you like to book' , type:'text'} , 
+           {name:'note'  ,      placeholde:'Let us a note' , type:'text'} , 
+           ].map((el , index)=><Input placeholder={el.placeholde} name={el.name} type={el.type} onChange={handleChange} value={form[el.name]} className="w-full" key={index}  />)
+        }
+        <button disabled={loading} className='hover:opacity-80 transition-all duration-300 ease-in-out mt-4 min-w-[800px] py-4 bg-dark text-bg-white text-xl rounded-lg'>{loading ? "Sending" : "Submit"}</button>
       </form>
     </div>
   )

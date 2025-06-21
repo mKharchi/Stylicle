@@ -17,12 +17,7 @@ const Hero = () => {
 }
 
 const Values = () => {
-  /**
-   * The work values we thrive for
-  Beauty Experts
-  Great Services
-  100% Genuine
-   */
+ 
   const val = [{
     title: "Beauty Experts"
     , description: "The majority have suffered alteration in some form, buying to injected humour, or randomised words which desktop publishing packages."
@@ -96,6 +91,8 @@ const Journey = () => {
   }, {
     title: "The Treatment Stage", text: "The point of using Lorem Ipsum is that it has a more-or-less normal letters. "
   },]
+
+
   return (
     <div className='w-full min-h-screen flex py-24 items-center justify-between'>
       <div className='w-full px-24 flex flex-col gap-2 justify-center items-start'>
@@ -125,7 +122,6 @@ const Journey = () => {
 const About = () => {
   return (
     <div className='min-h-screen w-full flex flex-col justify-start items-center'>
-
       <Hero />
       <Values />
       <ABoutUs />
